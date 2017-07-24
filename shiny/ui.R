@@ -10,16 +10,27 @@
 library(shiny)
 library(shinydashboard)
 library(DT)
-# Define UI for application that draws a histogram
+
+source("Core.R")
+source("Styles.R")
+source("ModuleOptions.R")
+source("ModuleSimple.R")
+
 shinyUI(
   dashboardPage( skin="green",
     dashboardHeader(disable = TRUE),
-    dashboardSidebar(disable = TRUE),
+    dashboardSidebar(collapsed = TRUE,
+      disable = FALSE,sidebarMenu(
+        id = "mainMenu",
+        menuItem("Simple", tabName = "Simple", icon = icon("dashboard")),
+        menuItem("Complexe",  tabName = "Complexe", icon = icon("user-md")),
+        menuItem("Options", tabName = "Options", icon = icon("user-md")))
+      ),
     dashboardBody(
       tabItems(
-        tabItem(tabName = "Simple"),
+        tabItem(tabName = "Simple", UI_Simple()),
         tabItem(tabName = "Complexe"),
-        tabItem(tabName = "Options")
+        tabItem(tabName = "Options", UI_Options())
       )
     )
   )
